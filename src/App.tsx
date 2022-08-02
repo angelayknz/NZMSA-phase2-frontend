@@ -18,58 +18,61 @@ function App() {
     <div>
       <h1>Disney Charactor Search</h1>
 
-      <div>
-        {/* <label>Enter the Charactor ID</label> */}
-        <br />
-        {/* <input
-          type="text"
-          id="name"
-          name="name"
-          onChange={(e) => setPokemonID(e.target.value)}
-        /> */}
-
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <TextField
           id="search-bar"
           className="text"
           value={pokemonID}
-          onChange={(prop: any) => {
+          onChange={(prop) => {
             setPokemonID(prop.target.value)
           }}
           label="Enter a charactor ID..."
           variant="outlined"
           placeholder="Search..."
-          size="small"
+          size="medium"
         />
 
-        <IconButton
+        <Button
           aria-label="search"
           onClick={() => {
             search()
           }}
         >
           <SearchIcon style={{ fill: 'blue' }} />
-        </IconButton>
+        </Button>
 
         <br />
-        {/* <button onClick={search}>Search</button> */}
       </div>
 
-      <p>You have entered {pokemonID}</p>
+      {/* <p>You have entered {pokemonID}</p> */}
 
       {pokemonInfo === undefined ? (
         <p>Charactor not found. Please try again.</p>
       ) : (
-        <div id="pokemon-result">
-          {pokemonInfo.imageUrl === null || pokemonInfo === null ? (
-            <p>No image found</p>
-          ) : (
-            <img src={pokemonInfo.imageUrl} />
-          )}
-          <p>
-            Name: {pokemonInfo.name}
-            <br />
-            TV Shows: {pokemonInfo.tvShows}
-          </p>
+        <div
+          id="pokemon-result"
+          style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '100px 10px 0px 10px',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Grid item>
+            <Box bgcolor="pink" p={12}>
+              {pokemonInfo.imageUrl === null || pokemonInfo === null ? (
+                <p>No image found</p>
+              ) : (
+                <img src={pokemonInfo.imageUrl} />
+              )}
+              <p>
+                Name: {pokemonInfo.name}
+                <br />
+                TV Shows: {pokemonInfo.tvShows}
+              </p>
+            </Box>
+          </Grid>
         </div>
       )}
     </div>
