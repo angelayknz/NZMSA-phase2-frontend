@@ -1,18 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import axios from 'axios'
-import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import TextField from '@mui/material/TextField'
-import { Box, Button, Grid, Paper, Skeleton } from '@mui/material'
+import { Box, Button, Grid } from '@mui/material'
 
 function App() {
-  // Declare a new state variable, which we'll call "pokemonName"
-  // const [pokemonName, setPokemonName] = useState('')
-  const [pokemonID, setPokemonID] = useState('')
-  const [pokemonInfo, setPokemonInfo] = useState<undefined | any>(undefined)
+  const [disneyID, setDisneyID] = useState('')
+  const [disneyInfo, setDisneyInfo] = useState<undefined | any>(undefined)
 
-  const POKEMON_BASE_URL = 'https://api.disneyapi.dev/characters'
+  const BASE_URL = 'https://api.disneyapi.dev/characters'
 
   return (
     <div>
@@ -22,9 +19,9 @@ function App() {
         <TextField
           id="search-bar"
           className="text"
-          value={pokemonID}
+          value={disneyID}
           onChange={(prop) => {
-            setPokemonID(prop.target.value)
+            setDisneyID(prop.target.value)
           }}
           label="Enter a charactor ID..."
           variant="outlined"
@@ -44,9 +41,7 @@ function App() {
         <br />
       </div>
 
-      {/* <p>You have entered {pokemonID}</p> */}
-
-      {pokemonInfo === undefined ? (
+      {disneyInfo === undefined ? (
         <p>Charactor not found. Please try again.</p>
       ) : (
         <div
@@ -61,15 +56,15 @@ function App() {
         >
           <Grid item>
             <Box bgcolor="pink" p={12}>
-              {pokemonInfo.imageUrl === null || pokemonInfo === null ? (
+              {disneyInfo.imageUrl === null || disneyInfo === null ? (
                 <p>No image found</p>
               ) : (
-                <img src={pokemonInfo.imageUrl} />
+                <img src={disneyInfo.imageUrl} />
               )}
               <p>
-                Name: {pokemonInfo.name}
+                Name: {disneyInfo.name}
                 <br />
-                TV Shows: {pokemonInfo.tvShows}
+                TV Shows: {disneyInfo.tvShows}
               </p>
             </Box>
           </Grid>
@@ -79,19 +74,19 @@ function App() {
   )
 
   function search() {
-    if (pokemonID === undefined || pokemonID === '') {
+    if (disneyID === undefined || disneyID === '') {
       return
     }
 
     axios
-      .get(POKEMON_BASE_URL + '/' + pokemonID)
+      .get(BASE_URL + '/' + disneyID)
       .then((res) => {
         // console.log(res.data)
-        setPokemonInfo(res.data)
+        setDisneyInfo(res.data)
       })
       .catch((err) => {
         console.log('Charactor not found')
-        setPokemonInfo(undefined)
+        setDisneyInfo(undefined)
       })
   }
 }
